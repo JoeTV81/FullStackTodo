@@ -1,0 +1,86 @@
+ <!DOCTYPE html>
+<html lang="en" ng-app="todoApp">
+
+<head>
+  <meta charset="UTF-8">
+  <title> ToDo List </title>
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <!-- endbower -->
+
+  <!-- inject:css -->
+  <link rel="stylesheet" href="/app/styles/styles.css">
+  <!-- endinject -->
+</head>
+
+<body ng-controller="toDoController as vm">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+
+        <form name="todoEntryForm" role="form">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+              <h3 class="panel-title"> Add to do Item </h3>
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="todoText">Text</Label>
+                  <input type="text" class="form-control" ng-model="vm.toDoObject.name"/>
+                </div>
+                <div class="form-group">
+                  <label for="todoPriority">Priority</label>
+                  <select id="todoPriority" ng-model="vm.toDoObject.text">
+                  <option value="1">High</option>
+                  <option value="2">Medium</option>
+                  <option value="3">Low</option>
+                  </select>
+                </div>
+              </div>
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-primary" ng-click="vm.addtoDo()">Add Todo</button>
+        </div><!-- panel-footer -->
+      </form>
+    </div><!--col-xs-12-->
+    <table class="table">
+      <div class="col-xs-12 col-sm-8">
+        <div class="btn-group">
+          <button type="button" class="btn btn-danger" ng-click="sortList = 'priority'">Order by Highest Priority</button>
+          <button type="button" class="btn btn-info" ng-click="sortList = '-priority'">Order by Lowest Priority</button>
+          <button type="button" class="btn btn-warning" ng-click="sortList = 'list'">Order alphabetically</button>
+        </div>
+
+        <ul>
+         <li ng-repeat="list in vm.list | orderBy: sortList" ng-bind=":: list.todo" ng-class="::{'High': list.Priority==1 , 'Medium': list.Priority==2, 'Low': list.Priority==3}">
+          </li>
+        </ul>
+        </div>
+        </table>
+
+        <table class="table">
+          <tbody>
+            <tr ng-repeat="data in vm.list" ng-class"{{getTodoClass(todo)}}">
+              <td>
+                 {{data.todo}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <pre>{{vm.list | json}}</pre> -->
+        <!-- FORM STUFF =========================== -->
+      </div>
+        <!-- bower:js -->
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <!-- endbower -->
+        <!-- inject:js -->
+        <script src="/app/app.js"></script>
+        <script src="/app/todo.controller.js"></script>
+        <script src="/app/todo.factory.js"></script>
+        <!-- endinject -->
+      </body>
+      <p></p>
+
+
+  </html>
